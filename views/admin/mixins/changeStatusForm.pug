@@ -1,0 +1,13 @@
+mixin formChangeStatus(path)
+    form(action=path , method="POST" form-change-multip)
+        .d-flex.align-items-start   
+            .form-group     
+                select(name="type" class="form-control")
+                    option(disabled selected) Option
+                    option(value="active") active 
+                    option(value="inactive") inactive 
+                    option(value="delete_multip") delete 
+                    option(value="change_position") change position 
+            .form-group 
+                input(type="text" name="listId" value="" class="form-control d-none")
+            button(type="submit" class="btn btn-primary") approve 

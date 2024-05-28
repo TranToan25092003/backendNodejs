@@ -1,0 +1,16 @@
+mixin pagination(quantityPage)
+    nav
+        ul(class="pagination")
+            li(class="page-item")
+                button(class="page-link" page-click=`1`) go to first page 
+            li(class="page-item" )
+                if(quantityPage.currentPage != 1)
+                    button(class="page-link" page-click=`${quantityPage.currentPage - 1}`) previous 
+            - for (let i = 1; i <= quantityPage.quantityPage; i++)
+                li(class="page-item" page-click=`${i}`)
+                    button(class=`page-link ${quantityPage.currentPage === i ? "active" : ''}`) #{i} 
+            li(class="page-item")
+                if(quantityPage.currentPage < quantityPage.quantityPage)
+                    button(class="page-link"  page-click=`${quantityPage.currentPage}`) next
+            li(class="page-item")
+                button(class="page-link" page-click=`${quantityPage.quantityPage}`) go to last page 

@@ -1,0 +1,98 @@
+.header {
+  background: rgb(44, 45, 39);
+  padding: 10px 0;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.header .inner-logo a {
+  font-size: 15px;
+  font-weight: 700;
+  color: white;
+}
+
+.body .sider {
+  width: 150px;
+  background: rgba(234, 227, 227, 0.279);
+  color: white;
+  font-size: 10px;
+  height: calc(100vh - 56px);
+  position: fixed;
+  top: 56px;
+  left: 0;
+}
+
+.body .main {
+  margin: 15px;
+  position: relative;
+  left: 150px;
+  width: (100% - 180px);
+}
+
+.sider .inner-menu ul {
+  color: white;
+  display: block;
+  padding: 6px 10px;
+  border-bottom: 1px solid burlywood;
+}
+
+.sider .inner-menu ul li a {
+  color: violet;
+  display: block;
+  padding: 6px 10px;
+  border-bottom: 1px solid violet;
+}
+
+[show-alert] {
+  position: fixed;
+  top: 70px;
+  right: 15px;
+  z-index: 99999;
+}
+
+[show-alert].alert-hidden {
+  animation-name: alert-hidden;
+  animation-duration: 0.5s;
+  animation-fill-mode: both;
+}
+
+@keyframes alert-hidden {
+  from {
+    right: 15px;
+  }
+  to {
+    right: -100%;
+    display: none;
+  }
+}
+
+.test {
+  width: 1000px;
+}
+
+[show-alert] [close-alert] {
+  background: white;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  text-align: center;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  margin-left: 450px;
+}
+
+/*image preview*/
+.image-preview {
+  width: 150px;
+  height: auto;
+  margin-top: 15px;
+  border: 1px solid white;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.image-preview[src=""] {
+  display: none;
+}
