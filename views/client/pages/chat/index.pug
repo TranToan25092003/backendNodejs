@@ -1,0 +1,77 @@
+extends ../../layout/default.pug
+include ../../mixins/boxHead.pug
+include ../../mixins/submenu.pug
+include ../../mixins/productLayout.pug
+
+block main 
+    head 
+        link(rel="stylesheet", href="/css/chat.css")
+    body
+    include ../../partials/button.user.pug
+    .row.bootstrap.snippets
+        .col-md-3
+        // DIRECT CHAT PRIMARY
+        .box.box-primary.direct-chat.direct-chat-primary
+            .box-header.with-border
+            h3.box-title Direct Chat
+            .box-tools.pull-right
+                span.badge.bg-light-blue(data-toggle='tooltip', title='', data-original-title='3 New Messages') 3
+                button.btn.btn-box-tool(type='button', data-widget='collapse')
+                i.fa.fa-minus
+                button.btn.btn-box-tool(type='button', data-toggle='tooltip', title='Contacts', data-widget='chat-pane-toggle')
+                i.fa.fa-comments
+                button.btn.btn-box-tool(type='button', data-widget='remove')
+                i.fa.fa-times
+
+        .box-body(idUser=user.id style="max-height: 450px; overflow-y: auto; width: 1600px")
+            each item in chat        
+                if( item.infor.id == user.id)
+                    .direct-chat-msg.right
+                        .direct-chat-info.clearfix
+                            span.direct-chat-name.pull-left #{item.infor.fullName}
+                            span.direct-chat-timestamp.pull-right 23 Jan 2:05 pm
+
+                        img.direct-chat-img(src='https://bootdey.com/img/Content/user_2.jpg', alt='Message User Image')
+                        if(item.content)
+                            .direct-chat-text
+                                | #{item.content}
+                        if(item.images)
+                            .inner-images(style="text-align: right")   
+                                each image in item.images 
+                                    img(src=image style="width: 200px; height: auto")
+                else    
+                    .direct-chat-msg
+                        .direct-chat-info.clearfix
+                            span.direct-chat-name.pull-left #{item.infor.fullName}
+                            span.direct-chat-timestamp.pull-right 23 Jan 2:00 pm 
+                        img.direct-chat-img(src='https://bootdey.com/img/Content/user_1.jpg', alt='Message User Image')
+                        if(item.content)
+                            .direct-chat-text
+                                | #{item.content}
+                        if(item.images)
+                            .inner-images(style="text-align: left")   
+                                each image in item.images 
+                                    img(src=image, alt="" style="width: 200px; height: auto")
+            div(class="inner-list-typing")
+                .inner-preview-image
+                    div( class="custom-file-container" data-upload-id="uploadImage" id="uploadimg")
+                .box-footer
+                    form(action='/chat', method='get' formSubmit)
+                        .input-group()
+                            input.form-control(type='text', name='message', placeholder='Type Message ...' inputText style="max-height: 50px")
+                            span.input-group-btn
+                            label.btn.btn-primary.btn-flat.mx-2(for="file-upload-with-preview-uploadImage" style="max-height: 50px") image
+                            span.btn.btn-primary.btn-flat.mx-2(emojiBtn style="max-height: 50px") Emoji
+                            button.btn.btn-primary.btn-flat.mx-2(type='submit' style="max-height: 50px") Send
+                            div(class="tooltip" role="tooltip" tooltip) 
+                                <emoji-picker class="light"></emoji-picker>
+block script  
+    <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
+    //- socket.io
+    <script src="/socket.io/socket.io.js"></script>
+    script(src="/js/socket.js") 
+    //- upload image
+    script(src="https://unpkg.com/file-upload-with-preview/dist/file-upload-with-preview.iife.js") 
+    //- image preview
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.6/viewer.js") 
+    script(type="module" src="/js/chat.js")     

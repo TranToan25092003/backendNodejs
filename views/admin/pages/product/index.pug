@@ -4,6 +4,8 @@ include ../../mixins/searchBar.pug
 include ../../mixins/pagination.pug
 include ../../mixins/changeStatusForm.pug
 include ../../mixins/alert.pug
+include ../../mixins/sort.pug
+include ../../mixins/moment.pug
 block main 
     h1(color: "white") #{typeList}
 
@@ -19,51 +21,72 @@ block main
                     +statusFilterBtn(buttonStatus)
                 .col-6 
                     +searchBar(keyword)
-    
-    .card.mb-3  
-        .card-header list product
-            .card-body
-                .row 
-                +formChangeStatus(`${prefixAdmin}/product/change-multi?_method=PATCH`)  
-                table(class="table table-striped-columns" check-box-multi)
-                    thead 
-                    a(href=`${prefixAdmin}/product/create` style="color: black") Create
-                        tr 
-                            th 
-                                input(type="checkbox" name="checkAll")
-                            th No 
-                            th image 
-                            th title 
-                            th price 
-                            th position
-                            th status 
-                            th action 
-
-                    tbody 
-                        each item, index in  listProduct
+    if(role.Permissions.includes("products_view"))
+        .card.mb-3  
+            .card-header list product
+                .card-body
+                    .row 
+                    +formChangeStatus(`${prefixAdmin}/product/change-multi?_method=PATCH`)  
+                    table(class="table table-striped-columns" check-box-multi)
+                        thead 
+                        +sort()
+                        if(role.Permissions.includes("products_add"))
+                            a(href=`${prefixAdmin}/product/create` style="color: black") Create
+                        
+                        
                             tr 
-                                td 
-                                    input(type="checkbox" name="id" value=item.id )
-                                td #{index + 1 + ((quantityPage.currentPage - 1 ) * quantityPage.limitProduct)}
-                                td 
-                                    img(src=`${item.thumbnail}`, alt="product", width="300px" height="auto")
-                                td #{item.title}
-                                td #{item.price}
-                                td 
-                                    input(
-                                        type="number" value=item.position style="width: 60px"
-                                        min="1"
-                                        name="position"
-                                    )
-                                td 
-                                    a(href=`javascript:;` btn-change-status id=`${item.id}` status=`${item.status}`
-                                    class=`badge ${item.status === "active" ? " text-bg-success" : "text-bg-danger" }`) #{item.status} 
+                                th 
+                                    input(type="checkbox" name="checkAll")
+                                th No 
+                                th image 
+                                th title 
+                                th price 
+                                th position
+                                th status 
+                                th author
+                                th updater
+                                th action 
+                                
+
+                        tbody 
+                            each item, index in  listProduct
+                                tr 
+                                    td 
+                                        input(type="checkbox" name="id" value=item.id )
+                                    td #{index + 1 + ((quantityPage.currentPage - 1 ) * quantityPage.limitProduct)}
+                                    td 
+                                        img(src=`${item.thumbnail}`, alt="product", width="300px" height="auto")
+                                    td #{item.title}
+                                    td #{item.price}
+                                    td 
+                                        input(
+                                            type="number" value=item.position style="width: 60px"
+                                            min="1"
+                                            name="position"
+                                        )
+                                    td 
+                                        if(role.Permissions.includes("products_update"))
+                                            a(href=`javascript:;` btn-change-status id=`${item.id}` status=`${item.status}`
+                                            class=`badge ${item.status === "active" ? " text-bg-success" : "text-bg-danger" }`) #{item.status} 
+                                        else 
+                                            a(class=`badge ${item.status === "active" ? " text-bg-success" : "text-bg-danger" }` ) #{item.status} 
+                                    td #{item.author}        
+                                        if(item.createdBy.createAt)
+                                            +displayDate(item)
                                     
-                                td
-                                    div.btn-group 
-                                        a(href=`${prefixAdmin}/product/detail/${item.id}` class="btn btn-secondary btn-sm") Detail 
-                                        a(href=`${prefixAdmin}/product/edit/${item.id}` class="btn btn-warning btn-sm") update 
-                                        button(class="btn btn-danger btn-sm ml-1" delete-btn id=`${item.id}`) delete 
+                                    td
+                                        - const updater = item.updatedBy[item.updatedBy.length - 1]
+                                        if(updater)
+                                            p #{updater.updaterFullname}
+                                            +displayTime(updater)
+                                        
+                                    td
+                                        div.btn-group 
+                                            a(href=`${prefixAdmin}/product/detail/${item.id}` class="btn btn-secondary btn-sm") Detail 
+                                            if(role.Permissions.includes("products_update"))
+                                                a(href=`${prefixAdmin}/product/edit/${item.id}` class="btn btn-warning btn-sm") update 
+                                            if(role.Permissions.includes("products_delete"))
+                                                button(class="btn btn-danger btn-sm ml-1" delete-btn id=`${item.id}`) delete 
 
 
     +pagination(quantityPage)

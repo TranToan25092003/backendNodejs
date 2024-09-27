@@ -1,0 +1,6 @@
+include ./productItem.pug
+mixin productLayout(product)
+    .row 
+        .col-4.mb-3
+            each item in product     
+                +productItem(item)

@@ -12,4 +12,7 @@ router.get("/", controller.renderProduct);
 //#[GET] /product/detail/:slug
 router.get("/detail/:slug", controller.getDetail);
 
+//#[GET] /product/:slug
+router.get("/:slug", controller.getProductByCategory);
+
 module.exports = router;

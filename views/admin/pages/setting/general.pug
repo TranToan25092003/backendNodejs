@@ -1,0 +1,46 @@
+extends ../../layout/default.pug
+include ../../mixins/statusFilterBtn.pug
+include ../../mixins/searchBar.pug
+include ../../mixins/pagination.pug
+include ../../mixins/changeStatusForm.pug
+include ../../mixins/alert.pug
+include ../../mixins/sort.pug
+include ../../mixins/moment.pug
+block main 
+    h1(style="color: white") Setting
+    +alert-message("3000")
+    +alert-error(3000)
+
+    div !{'<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.5063419425223!2d105.52271427573257!3d21.012416680632906!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135abc60e7d3f19%3A0x2be9d7d0b5abcbf4!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBGUFQgSMOgIE7hu5lp!5e0!3m2!1svi!2s!4v1720255422783!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>'}
+
+    form(action='/admin/setting/general?_method=PATCH', method='post'  enctype="multipart/form-data")
+        .mb-3
+            label.form-label(for='exampleInputEmail1' style="color: white") name Website
+            input#exampleInputEmail1.form-control(type='text' name="websiteName" value=setting.websiteName ? setting.websiteName : "")
+
+        .mb-3 
+            .input-group.mb-3
+                label.input-group-text(for='inputGroupFile01' ) Upload
+                input#inputGroupFile01.form-control(type='file' name="logo" ) 
+            
+        .mb-3
+            label.form-label(for='exampleInputPassword1' style="color: white") phone
+            input#exampleInputPassword1.form-control(type='tel' name='phone' value=setting.phone ? setting.phone : "" )
+
+        .mb-3
+            label.form-label(for='exampleInputPassword1' style="color: white") email
+            input#exampleInputPassword1.form-control(type='email' name="email" value=setting.email ? setting.email : "")
+
+        .mb-3
+            label.form-label(for='exampleInputPassword1' style="color: white") address
+            input#exampleInputPassword1.form-control(type='address' name="address" value=setting.address ? setting.address : "")
+
+        .mb-3
+            label.form-label(for='exampleInputPassword1' style="color: white") copyright
+            input#exampleInputPassword1.form-control(type='copyright' name="copyRight" value=setting.copyRight ? setting.copyRight : "")
+
+
+
+            button.btn.btn-primary(type='submit') Submit
+
+

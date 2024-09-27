@@ -1,0 +1,51 @@
+extends ../../layout/default.pug
+include ../../mixins/boxHead.pug
+include ../../mixins/submenu.pug
+include ../../mixins/productLayout.pug
+include ../../mixins/alert.pug
+block main  
+    +alert-message(3000)
+    +alert-error(3000)
+
+    .container.my-3    
+        .row 
+            .col-12 
+                +boxHead("cart")
+
+        .row 
+            .col-12 
+                table(class="table table-bordered")
+                    thead 
+                        tr 
+                            th STT 
+                            th Image 
+                            th Name 
+                            th Price 
+                            th quantity 
+                            th sum price 
+                            th action 
+                        tbody
+                            if( cart.products.length > 0)
+                                each item, index in cart.products
+                                    tr
+                                        td #{index + 1}
+                                        td 
+                                            img(src=`${item.productDetail.thumbnail}` , alt="123" width="80px")
+                                        td 
+                                            a(href=`/product/detail/${item.productDetail.url}`) #{item.productDetail.title}
+                                        td #{item.productDetail.newPrice}
+                                        td 
+                                            input(type="number" name="quantity" value=item.quantity min="1" product-id=item.product_id style="width: 60px")
+                                        td #{item.sumPrice}
+                                        td  
+                                            a(href=`/cart/delete/${item.product_id}` class="btn btn-danger") Delete 
+                            else 
+                                h1 Cart empty
+            if( cart.products.length > 0)
+                h3(class="text-right") Sum price: #{cart.totalPrice}
+
+            if( cart.products.length > 0)
+                div(class="text-right mt-3")
+                    a(href="/checkout" class="btn btn-success") Checkout
+
+    script(src="/js/cart.js") 

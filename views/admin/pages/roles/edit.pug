@@ -1,0 +1,33 @@
+extends ../../layout/default.pug
+block main 
+    h1(class="mb-4" style="color: white") #{title}
+
+    form(
+        action=`${prefixAdmin}/roles/edit/${role.id}?_method=patch`
+        method="POST"
+    )
+        div(class="form-group")
+            label(for="title" style="color: white") title
+            input(
+                type="text"
+                class="form-control"
+                id="title"
+                name="title"
+                value=`${role.title}`
+                required
+                )
+        div(class="form-group")
+            label(for="description" style="color: white") Permission
+            input(
+                type="text"
+                class="form-control"
+                id="description"
+                name="description"
+                value=role.description
+                required
+                )
+        div(class="form-group")
+            button(
+                type="submit"
+                class="btn btn-primary"
+            ) update

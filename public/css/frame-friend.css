@@ -1,0 +1,129 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.card {
+  width: 340px;
+  height: 274px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+  & img {
+    height: 120px;
+    width: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-top: -60px;
+    background: #fff;
+    border: 6px solid #4364f7;
+  }
+  h2 {
+    font-family: Montserrat;
+    font-weight: 600;
+    margin-top: 40px;
+    font-size: 24px;
+  }
+  p {
+    color: #6e8ca0;
+    margin-top: 10px;
+    font-family: Montserrat;
+    font-size: 18px;
+  }
+  .buttongroup {
+    width: 100%;
+    margin-top: auto;
+    display: flex;
+    button {
+      flex: 1;
+      background: none;
+      border: none;
+      border: 1px solid #f0f3f4;
+      height: 50px;
+      font-weight: 500;
+      transition: color, background 0.3s;
+      font-size: 14px;
+      font-family: Montserrat;
+      cursor: pointer;
+      &:nth-child(even) {
+        border-left: none;
+      }
+      &:hover {
+        color: #4364f7;
+        background: #f7f7f7;
+      }
+    }
+  }
+}
+
+/* button add and remove a request friend */
+
+.card.add .buttongroup button[cancel-friend-btn] {
+  display: inline-block;
+}
+
+.card.add .buttongroup button[add-friend-btn] {
+  display: none;
+}
+
+.card .buttongroup button[add-friend-btn] {
+  display: inline-block;
+}
+
+.card .buttongroup button[cancel-friend-btn] {
+  display: none;
+}
+
+/* accept button */
+
+.card .buttongroup button[btn-accept-friend] {
+  display: none;
+}
+
+.card .buttongroup button[btn-refuse-friend] {
+  display: none;
+}
+
+.card .buttongroup button[btn-delete-friend] {
+  display: inline-block;
+}
+
+.card.refuse .buttongroup button[btn-accept-friend] {
+  display: inline-block;
+}
+
+.card.refuse .buttongroup button[btn-refuse-friend] {
+  display: inline-block;
+}
+
+.card.refuse .buttongroup button[btn-delete-friend] {
+  display: none;
+}
+
+.card.refuse .buttongroup button[btn-accepted-friend] {
+  display: none;
+}
+
+.card.accepted .buttongroup button[btn-accept-friend] {
+  display: none;
+}
+
+.card.accepted .buttongroup button[btn-refuse-friend] {
+  display: none;
+}
+
+.card.accepted .buttongroup button[btn-delete-friend] {
+  display: none;
+}
+
+.card.accepted .buttongroup button[btn-accepted-friend] {
+  display: inline-block;
+}
+
+/* end accept button */

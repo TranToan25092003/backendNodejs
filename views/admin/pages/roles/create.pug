@@ -1,0 +1,32 @@
+extends ../../layout/default.pug
+block main 
+    h1(class="mb-4" style="color: white") Add a new Role 
+
+    
+    form(
+        action=`${prefixAdmin}/roles/create`
+        method="POST"
+    )
+        div(class="form-group")
+            label(for="title" style="color: white") Title 
+            input(
+                type="text"
+                class="form-control"
+                id="title"
+                name="title"
+                required
+                )
+        div(class="form-group")
+            label(for="description" style="color: white") Description 
+            input(
+                type="text"
+                class="form-control"
+                id="description"
+                name="description"
+                required
+                )
+        div(class="form-group")
+            button(
+                type="submit"
+                class="btn btn-primary"
+            ) Create

@@ -5,6 +5,9 @@ block main
     if(product.title)
         h1(class="mb-4" #{product.title})
     
+    if(product.category_id)
+        div(class="mb-4" style="color: white") product category: <b>#{category.title}</b>
+
     if(product.price)
         div(class="mb-4" style="color: white") Price: <b>#{product.price}</b>
 
@@ -30,7 +33,7 @@ block main
         div(class="mb-4" style="color: white") position: <b>#{product.position}</b>
 
     if(product.description)
-        div(class="mb-4" style="color: white") description: <b>#{product.description}</b>
+        div(class="mb-4" style="color: white") description: <b> !{product.description}</b>
 
     a( href=`${prefixAdmin}/product/edit/${product._id}` class="btn btn-warning") Edit
     script(src="/admin/js/script.js")

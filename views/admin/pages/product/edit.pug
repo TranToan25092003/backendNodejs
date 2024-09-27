@@ -1,67 +1,90 @@
 extends ../../layout/default.pug
 include ../../mixins/alert.pug
+include ../../mixins/selectTree.pug
+include ../../mixins/selectTreeForUpdate.pug
 block main 
     h1(class="mb-4" style="color: white") #{title}
     +alert-error(3000)
     +alert-message("3000")
-    form(
-        action=`${prefixAdmin}/product/edit/${product._id}?_method=PATCH` id="form-create-product" enctype="multipart/form-data" method="post" )
-        div(class="form-group")
-            label(for="title" style="color: white") Title 
-            input(
-                type="text"
-                class="form-control"
-                id="title"
-                name="title"
-                required
-                value=`${product.title}`
-            ) 
-        div(class="form-group")
-            label(for="desc" style="color: white") describle 
-            textarea(class="form-control"
-            id="desc" 
-            name="description"
-            rows="5"
-            ) #{product.description}
-        div(class="form-group")
-            label(for="price" style="color: white") Price 
-            input(
-                type="number"
-                class="form-control"
-                id="price"
-                name="price"
-                min="0"
-                value=`${product.price}`
-            )
-        div(class="form-group")
-            label(for="discount" style="color: white") % discount 
-            input(
-                type="number"
-                class="form-control"
-                id="discount"
-                name="discountPercentage"
-                value=`${product.discountPercentage}`
-                min="0"
-            )
-        div(class="form-group")
-            label(for="stock" style="color: white") quanity 
-            input(type="number" class="form-control" id="stock" name="stock" value=`${product.stock}` min="0") 
-        div(class="form-group" upload-img)
-            label(for="thumbnail" style="color: white") image 
-            input(type="file" class="form-control-file" id="thumbnail" name="thumbnail"  style="color: white" accept="image/*" 
-            upload-img-input)
-            img(src=`${product.thumbnail}` alt="previewImage" class="image-preview" preview-img)
-        div(class="form-group")
-            label(for="position" style="color: white") position 
-            input(tyep="text" class="form-control" id="position" name="position" placeholder="auto grow up" mon="1" value=`${product.position}`)
-        div(class="form-group form-check form-check-inline")
-            input(type="radio" class="form-check-input" id="statusActive" name="status" value="active" checked=(product.status == "active" ? true : false))
-            label(for="statusActive" class="form-check-label" style="color: white") Active  
-        div(class="form-group form-check form-check-inline")
-            input(type="radio" class="form-check-input" id="statusInactive" name="status" value="inactive" checked=(product.status == "active" ? false : true))
-            label(for="statusInactive" class="form-check-label" style="color: white" ) Inactive  
-        div(class="form-group")
-            input( type="submit" value="Update") 
+    if(role.Permissions.includes("products-category_update"))
+        form(
+            action=`${prefixAdmin}/product/edit/${product._id}?_method=PATCH` id="form-create-product" enctype="multipart/form-data" method="post" )
+            div(class="form-group")
+                label(for="title" style="color: white") Title 
+                input(
+                    type="text"
+                    class="form-control"
+                    id="title"
+                    name="title"
+                    required
+                    value=`${product.title}`
+                ) 
+            
+            div(clas="form-group")
+                label(for="category-id" style="color: white") Product category
+                select(
+                    name="category_id"
+                    id="category-id"
+                    class="form-control"
+                )
+                    option(value="") --Select one--
+                    +selectTree(listCategory, 1, product.category_id)
+
+            div(class="form-group form-check form-check-inline")
+                input(type="radio" class="form-check-input" id="feature1" name="feature" value="1" checked= (product.feature === '1' ? true : false))
+                label(for="feature1" class="form-check-label" style="color: white" ) Outstanding  
+
+            div(class="form-group form-check form-check-inline")
+                input(type="radio" class="form-check-input" id="feature2" name="feature" value="0" checked= (product.feature === '0' ? true : false) )
+                label(for="feature2" class="form-check-label" style="color: white" ) No outstanding  
+
+            div #{product.category_id} 
+            div(class="form-group")
+                label(for="desc" style="color: white") describle 
+                textarea(class="form-control tinyMCE"
+                id="desc" 
+                name="description"
+                rows="5"
+                ) !{product.description}
+            div(class="form-group")
+                label(for="price" style="color: white") Price 
+                input(
+                    type="number"
+                    class="form-control"
+                    id="price"
+                    name="price"
+                    min="0"
+                    value=`${product.price}`
+                )
+            div(class="form-group")
+                label(for="discount" style="color: white") % discount 
+                input(
+                    type="number"
+                    class="form-control"
+                    id="discount"
+                    name="discountPercentage"
+                    value=`${product.discountPercentage}`
+                    min="0"
+                )
+            div(class="form-group")
+                label(for="stock" style="color: white") quanity 
+                input(type="number" class="form-control" id="stock" name="stock" value=`${product.stock}` min="0") 
+            div(class="form-group" upload-img)
+                label(for="thumbnail" style="color: white") image 
+                input(type="file" class="form-control-file" id="thumbnail" name="thumbnail"  style="color: white" accept="image/*" 
+                upload-img-input)
+                img(src=`${product.thumbnail}` alt="previewImage" class="image-preview" preview-img)
+            div(class="form-group")
+                label(for="position" style="color: white") position 
+                input(tyep="text" class="form-control" id="position" name="position" placeholder="auto grow up" mon="1" value=`${product.position}`)
+            div(class="form-group form-check form-check-inline")
+                input(type="radio" class="form-check-input" id="statusActive" name="status" value="active" checked=(product.status == "active" ? true : false))
+                label(for="statusActive" class="form-check-label" style="color: white") Active  
+            div(class="form-group form-check form-check-inline")
+                input(type="radio" class="form-check-input" id="statusInactive" name="status" value="inactive" checked=(product.status == "active" ? false : true))
+                label(for="statusInactive" class="form-check-label" style="color: white" ) Inactive  
+            div(class="form-group")
+                input( type="submit" value="Update") 
 
         script(src="/admin/js/script.js") 
 

@@ -1,0 +1,146 @@
+extends ../../layout/default.pug
+include ../../mixins/alert.pug
+block main 
+    h1(class="mb-4" style="color: white") #{title}
+    +alert-message(5000)
+
+    if(listRole)
+        div(allData=listRole)
+        
+    div(class="text-right")
+        button(
+            type="submit"
+            class="btn btn-primary mb-3"
+            button-submit
+        ) Update
+    
+    table(
+        class="table table-hove table-sm" style="width: 1000px" table-permission
+    )
+        thead   
+            tr 
+                th Feature
+                each item in listRole 
+                    th(class="text-center") #{item.title}
+            tbody 
+                tr(data-name="id")
+                    td
+                        each item in listRole
+                            td(class="text-center")
+                                input(name="id" value=item.id)
+                tr 
+                td(colspan="4")
+                    b Product category
+                tr(data-name="products-category_view")
+                    td Watch
+                    each item in listRole 
+                        td(class="text-center")
+                            input(type="checkbox")
+
+                tr(data-name="products-category_add")
+                    td Add 
+                    each item in listRole
+                        td(class="text-center")
+                            input(type="checkbox")
+                            
+                tr(data-name="products-category_update")
+                    td update
+                    each item in listRole
+                        td(class="text-center")
+                            input(type="checkbox")
+                tr(data-name="products-category_delete")
+                    td delete
+                    each item in listRole
+                        td(class="text-center")
+                            input(type="checkbox")
+
+                
+                td(colspan="4")
+                    b Product 
+                tr(data-name="products_view")
+                    td Watch
+                    each item in listRole 
+                        td(class="text-center")
+                            input(type="checkbox")
+
+                tr(data-name="products_add")
+                    td Add 
+                    each item in listRole
+                        td(class="text-center")
+                            input(type="checkbox")
+                            
+                tr(data-name="products_update")
+                    td update
+                    each item in listRole
+                        td(class="text-center")
+                            input(type="checkbox")
+                tr(data-name="products_delete")
+                    td delete
+                    each item in listRole
+                        td(class="text-center")
+                            input(type="checkbox")
+                
+                td(colspan="4")
+                    b Permission 
+                tr(data-name="permission_view")
+                    td Watch
+                    each item in listRole 
+                        td(class="text-center")
+                            input(type="checkbox")
+
+                tr(data-name="permission_add")
+                    td Add 
+                    each item in listRole
+                        td(class="text-center")
+                            input(type="checkbox")
+                            
+                tr(data-name="permission_update")
+                    td update
+                    each item in listRole
+                        td(class="text-center")
+                            input(type="checkbox")
+                tr(data-name="permission_delete")
+                    td delete
+                    each item in listRole
+                        td(class="text-center")
+                            input(type="checkbox")
+                tr(data-name="permission_change")
+                    td change permissions
+                    each item in listRole
+                        td(class="text-center")
+                            input(type="checkbox")
+
+                td(colspan="4")
+                    b Account 
+                tr(data-name="account_view")
+                    td Watch
+                    each item in listRole 
+                        td(class="text-center")
+                            input(type="checkbox")
+
+                tr(data-name="account_add")
+                    td Add 
+                    each item in listRole
+                        td(class="text-center")
+                            input(type="checkbox")
+                            
+                tr(data-name="account_update")
+                    td update
+                    each item in listRole
+                        td(class="text-center")
+                            input(type="checkbox")
+                tr(data-name="account_delete")
+                    td delete
+                    each item in listRole
+                        td(class="text-center")
+                            input(type="checkbox")
+                tr(data-name="account_change")
+                    td change permissions
+                    each item in listRole
+                        td(class="text-center")
+                            input(type="checkbox")
+
+    form(action=`${prefixAdmin}/roles/update?_method=patch`, method="post" id="form-change-permission")
+        input(type="text" name="datPermission" value=" ") 
+
+    script(src="/admin/js/permission.js")                   

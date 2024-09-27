@@ -1,4 +1,15 @@
 extends ../../layout/default.pug
 include ../../mixins/boxHead.pug
+include ../../mixins/submenu.pug
+include ../../mixins/productLayout.pug
 block main 
-        +boxHead(title)
+        #{title}
+        .container.my-3 
+                .row            
+                .col-12 
+                        +boxHead(title)
+                +productLayout(product)
+                
+                +productLayout(newProduct)
+
+                

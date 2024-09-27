@@ -1,0 +1,40 @@
+mixin  tableCategory(listCategory, level = 1)
+    - let i = 1;
+    each item, index in  listCategory
+        - const prefix = Array(level + 1).join("-- ")
+        tr 
+            td #{item.index}
+            td 
+                img(src=`${item.thumbnail}`, alt="product", width="300px" height="auto")
+
+            td #{prefix}!{item.description}
+
+
+            td 
+                input(
+                    type="number" value=item.position style="width: 60px"
+                    min="1"
+                    name="position"
+                )
+
+            td 
+                if(role.Permissions.includes("products-category_update"))
+                    a(href=`javascript:;` btn-change-status id=`${item.id}` status=`${item.status}`
+                    class=`badge ${item.status === "active" ? " text-bg-success" : "text-bg-danger" }`) #{item.status} 
+                else 
+                    a(class=`badge ${item.status === "active" ? " text-bg-success" : "text-bg-danger" }` ) #{item.status} 
+
+            td #{item.author}        
+                if(item.createdBy.createAt)
+                    +displayTime(item)
+                    
+            td
+                div.btn-group 
+                    a(href=`` class="btn btn-secondary btn-sm") Detail 
+                    if(role.Permissions.includes("products-category_update"))
+                        a(href=`/admin/productCategory/update/${item.id}` class="btn btn-warning btn-sm") update 
+                    if(role.Permissions.includes("products-category_delete"))
+                        button(class="btn btn-danger btn-sm ml-1" delete-btn id=`${item.id}`) delete  
+            if item.children && item.children.length > 0 
+                +tableCategory(item.children, level + 1)
+            

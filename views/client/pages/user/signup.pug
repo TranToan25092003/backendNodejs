@@ -1,0 +1,24 @@
+extends ../../layout/default.pug
+include ../../mixins/submenu.pug
+include ../../mixins/alert.pug
+block main 
+    +alert-message(3000)
+    +alert-error(3000)
+
+    .container.my-5 
+        .row.justify-content-center 
+            .col-8 
+                h1(class="text-center") signup an account
+                form(action="/user/signup" method="post")
+                    .mb-3
+                        label.form-label(for='fullName') Fullname
+                        input#fullname.form-control(type='text' name='fullname' required)
+                        #emailHelp.form-text We&apos;ll never share your email with anyone else.
+                    .mb-3
+                        label.form-label(for='email') Email address
+                        input#email.form-control(type='email' name='email' aria-describedby='emailHelp' required)
+                        #email.form-text We&apos;ll never share your email with anyone else.
+                    .mb-3
+                        label.form-label(for='password') Password
+                        input#password.form-control(type='password' name='password' required)
+                    button.btn.btn-primary(type='submit') Submit

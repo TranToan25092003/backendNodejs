@@ -1,0 +1,10 @@
+extends ../../layout/default.pug
+include ../../mixins/boxHead.pug
+include ../../mixins/submenu.pug
+include ../../mixins/productLayout.pug
+block main 
+    .container.my-3
+        .row 
+            .col-12
+                +boxHead("Result list")
+                +productLayout(product)

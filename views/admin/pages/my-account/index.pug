@@ -1,0 +1,28 @@
+extends ../../layout/default.pug
+
+block main 
+    h1(class="mb-4" style="color: white") Information 
+    if(account.avatar)
+        img(src=account.avatar width="150px" class="mb-3")
+    else    
+        img(src="/admin/images/avatar.png" widht="150px" class="mb-3")
+
+    if(account.fullName)
+        p(style="color: white") Fullname: <b style="color: white">#{account.fullName}</b>
+    
+    if(account.email)
+        p(style="color: white") Email: <b style="color: white">#{account.email}</b>
+
+    if(account.phone)
+        p(style="color: white") Phone: <b style="color: white">#{account.phone}</b>
+
+    p(style="color: white")   
+        span status: 
+        span 
+            <b style="color: white"> #{account.status === 'active' ? 'active' : 'inactive' } </b>
+
+    if(role.title) 
+        p(style="color: white") Permission: <b> #{role.title} </b>
+    
+    a(href=`${prefixAdmin}/my-account/edit` class="btn btn-primary" style="color: white") edit
+

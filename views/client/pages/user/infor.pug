@@ -1,0 +1,12 @@
+extends ../../layout/default.pug
+include ../../mixins/submenu.pug
+include ../../mixins/alert.pug
+block main 
+    +alert-message(3000)
+    +alert-error(3000)
+
+    .container.my-5 
+        .row.justify-content-center 
+            .col-8 
+                h1(class="text-center") infor
+                div #{user}

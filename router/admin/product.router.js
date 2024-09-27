@@ -1,10 +1,13 @@
 const express = require("express");
 const multer = require("multer");
 const router = express.Router();
+const uploadCloudImg = require("../../middleware/admin/uploadImgToCloud.middleWare");
 const renderProductPage = require("../../controller/admin/product.controller");
-const storage = require("../../helper/storage.multer");
-const upload = multer({ storage: storage() });
 const validate = require("../../validate/product.validate");
+
+// const upload = multer({ storage: storage() }); // save in local
+const upload = multer();
+
 //# [GET] /product
 router.get("/", renderProductPage.productPage);
 
@@ -24,6 +27,7 @@ router.get("/create", renderProductPage.renderFormCreate);
 router.post(
   "/create",
   upload.single("thumbnail"), // add this function to create a img
+  uploadCloudImg.UploadImgToCloud,
   validate.createProduct,
   renderProductPage.createProduct
 );
@@ -35,6 +39,7 @@ router.get("/edit/:id", renderProductPage.editProduct);
 router.patch(
   "/edit/:id",
   upload.single("thumbnail"),
+  uploadCloudImg.UploadImgToCloud,
   validate.createProduct,
   renderProductPage.editProductPatch
 );

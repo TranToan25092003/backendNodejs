@@ -1,0 +1,59 @@
+extends ../../layout/default.pug
+include ../../mixins/alert.pug
+block main
+    +alert-message("3000")
+    +alert-error(3000)
+    form(action=`${prefixAdmin}/my-account/edit?_method=patch` method="post" enctype="multipart/form-data")
+        div(class="form-group")
+            label(for="userName") Name 
+            input(
+                name="fullName"
+                type="text"
+                class="form-control"
+                id="fullName"
+                required 
+                value=account.fullName
+            )
+        div(class="form-group")
+            label(for="email") Email 
+            input(
+                name="email"
+                type="text"
+                class="form-control"
+                id="email"
+                required 
+                value=account.email
+            )
+        div(class="form-group")
+            label(for="password") password 
+            input(
+                type="text"
+                class="form-control"
+                id="password"
+                value=""
+            )
+        div(class="form-group")
+            label(for="phone") phone 
+            input(
+                name="phone"
+                type="text"
+                class="form-control"
+                id="phone"
+                accept="image/*"
+                required 
+                value=account.phone
+                upload-image-input
+            )
+        div(class="form-group")
+            label(for="avatar") avatar 
+            input(
+                name="avartar"
+                type="file"
+                class="form-control"
+                id="avatar"
+                value=account.avartar
+            )
+            img(src=account.avartar class="image-preview" upload-image-preview)
+        div(class="form-group")
+            button(type="submit" class="btn btn-primary") update
+        

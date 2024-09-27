@@ -1,0 +1,24 @@
+extends ../../layout/default.pug
+include ../../mixins/boxHead.pug
+include ../../mixins/submenu.pug
+include ../../mixins/productLayout.pug
+
+block main 
+    head 
+        link(rel="stylesheet", href="/css/frame-friend.css")
+    include ../../partials/button.user.pug
+    h1 List relate friend
+
+    div(style="margin-top: 65px; margin-bottom: 10px; display: flex; justify-content: space-between" ) 
+        each item in friend
+            .card(class="add")
+                img(alt=item.fullName src=item.avartar ? item.avartar : 'https://scontent.fhan14-5.fna.fbcdn.net/v/t1.15752-9/438158386_745984067428176_5893907391898096556_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeE5uUTO6Gye34P0mtg1HinLiDJ_j0nl6qCIMn-PSeXqoAp6UJK7d7iw-NS-cqHL2wa_m6U3TROMOcU8hfq5VMBM&_nc_ohc=UGCOBXQ1fJwQ7kNvgE_0WZo&_nc_ht=scontent.fhan14-5.fna&oh=03_Q7cD1QGdHwGL66HN29VQjEUIIJlcfYtNN5rsdY08YWxNlXXAVA&oe=66B8BAF4')
+                h2 #{item.fullName}
+                p Sent you a Friend Request!
+                .buttongroup
+                    button(add-friend-btn=item.id) Add friend
+                    button(cancel-friend-btn=item.id) Cancel
+block script 
+    <script src="/socket.io/socket.io.js"></script>
+    script(src="/js/socket.js") 
+    script(type="module" src="/js/friend.js") 

@@ -1,0 +1,60 @@
+extends ../../layout/default.pug
+include ../../mixins/boxHead.pug
+include ../../mixins/submenu.pug
+include ../../mixins/productLayout.pug
+include ../../mixins/alert.pug
+
+block main  
+    +alert-message(3000)
+    +alert-error(3000)
+
+    .container.my-3    
+        .row 
+            .col-12 
+                +boxHead("Success checkout")
+        .row 
+            .col-12 
+                div(class="alert alert-success") Great your order successfully
+            
+    if(order)
+        .row 
+            .col-12 
+                h4(class="mb-2") Your information 
+                table(class="table table-bordered")
+                    tbody 
+                        tr 
+                            td Name 
+                            td 
+                                b #{order.userInfo.fullName}
+                        
+                        tr 
+                            td Phone 
+                            td #{order.userInfo.phone}
+                        tr 
+                            td Address 
+                            td #{order.userInfo.address}
+        .row 
+            .col-12 
+                h4(class="mb-2") Your information order 
+                table(class="table table-bordered")
+                    thead 
+                        tr  
+                            th STT 
+                            th image 
+                            th name 
+                            th price 
+                            th quantity 
+                            th total 
+                    tbody 
+                        h1 #{order.products.length}
+                        if( order.products.length > 0 )
+                            each item,index in order.products
+                                h1 suka
+                                tr 
+                                    td #{index + 1}
+                                    td
+                                        img(src=item.prdouctInfor.thumbnail width="80px")
+                                    td #{item.prdouctInfor.title}
+                                    td #{item.price}
+                                    td #{item.quantity}
+                                    td #{item.totalPrice}

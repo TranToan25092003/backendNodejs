@@ -1,0 +1,65 @@
+extends ../../layout/default.pug
+include ../../mixins/alert.pug
+include ../../mixins/selectTreeForUpdate.pug
+include ../../mixins/selectTree.pug
+block main 
+    h1(class="mb-4" style="color: white") Add new category product 
+    +alert-error(3000)
+    if(role.Permissions.includes("products-category_update"))
+        form(
+            action=`${prefixAdmin}/productCategory/update/${category.id}?_method=patch` enctype="multipart/form-data"
+            method="POST" )
+
+            div(class="form-group")
+                label(for="title" style="color: white") Title 
+                input(
+                    type="text"
+                    class="form-control"
+                    id="title"
+                    name="title"
+                    value=category.title
+                    required
+                ) 
+            
+            div(class="form-group")
+                label(for="parent_id" style="color: white") Parent Category 
+                select(
+                    name="parent_id"
+                    id="parent_id"
+                    class="form-control"
+                )
+                    option(value="") --Select one--
+                    +selectTreeForUpdate(listCategory, 1,category._id)
+
+            div(class="form-group")
+                label(for="desc" style="color: white") describle 
+                textarea(class="form-control tinyMCE"
+                id="desc" 
+                name="description"
+                rows="5"
+                ) #{category.description}
+
+            div(class="form-group" upload-img)
+                label(for="thumbnail" style="color: white") image 
+                input(type="file" class="form-control-file" id="thumbnail" name="thumbnail"  style="color: white" accept="image/*" 
+                upload-img-input)
+                img(src=category.thumbnail alt="previewImage" class="image-preview" preview-img)
+
+            div(class="form-group")
+                label(for="position" style="color: white") position 
+                input(tyep="text" class="form-control" id="position" name="position" value=category.position  mon="1")
+
+            div(class="form-group form-check form-check-inline")
+                input(type="radio" class="form-check-input" id="statusActive" name="status" value="active" checked= category.status == 'active' ? true : false  )
+                label(for="statusActive" class="form-check-label" style="color: white") Active 
+
+            div(class="form-group form-check form-check-inline")
+                input(type="radio" class="form-check-input" id="statusInactive" name="status" value="inactive" checked= category.status == 'inactive' ? true : false )
+                label(for="statusInactive" class="form-check-label" style="color: white") Inactive  
+
+            div(class="form-group btn btn-primary")
+                button(type="submit" class="btn btn-primary" ) Update
+
+        script(src="/admin/js/script.js") 
+
+

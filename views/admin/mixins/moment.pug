@@ -1,0 +1,8 @@
+mixin displayDateTime(item)
+    span  #{moment(item.createdBy.createAt).format("DD/MM/YYYY HH:mm:ss")}  
+ 
+mixin displayDate(item)
+    #{moment(item.createdBy.createAt).format("DD/MM/YYYY")} 
+
+mixin displayTime(item)
+    p  #{moment(item.updatedAt).format("HH:mm:ss")}

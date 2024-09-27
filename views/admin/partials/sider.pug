@@ -1,7 +1,23 @@
 .sider 
     .inner-menu 
         ul 
+            
             li  
                 a(href=`${prefixAdmin}/dashboard`) Dashboard 
+            if(role.Permissions.includes("products_view"))
+                li 
+                    a(href=`${prefixAdmin}/product`) list product
+            if(role.Permissions.includes("products-category_view"))
+                li 
+                    a(href=`${prefixAdmin}/productCategory`)  product category
+            if(role.Permissions.includes("products-category_view"))
+                li 
+                    a(href=`${prefixAdmin}/roles`) Roles
+            if(role.Permissions.includes("permission_view"))   
+                li 
+                    a(href=`${prefixAdmin}/roles/permission`) Permissions
+            if(role.Permissions.includes("account_view"))   
+                li 
+                    a(href=`${prefixAdmin}/account`) List account
             li 
-                a(href=`${prefixAdmin}/products`) product
+                a(href=`${prefixAdmin}/setting/general`) Setting

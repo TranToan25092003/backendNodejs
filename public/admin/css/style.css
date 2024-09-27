@@ -44,6 +44,9 @@
   border-bottom: 1px solid violet;
 }
 
+.test {
+  width: 1000px;
+}
 [show-alert] {
   position: fixed;
   top: 70px;
@@ -65,10 +68,6 @@
     right: -100%;
     display: none;
   }
-}
-
-.test {
-  width: 1000px;
 }
 
 [show-alert] [close-alert] {

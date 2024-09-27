@@ -1,0 +1,37 @@
+extends ../../layout/default.pug
+include ../../mixins/statusFilterBtn.pug
+include ../../mixins/searchBar.pug
+include ../../mixins/pagination.pug
+include ../../mixins/changeStatusForm.pug
+include ../../mixins/alert.pug
+include ../../mixins/sort.pug
+include ../../mixins/moment.pug
+include ../../mixins/tableCategory.pug
+block main 
+    h1(color: "white") #{typeList}
+    
+    .card.mb-3 
+        .card-header List 
+            .card-body  
+                .row    
+                    .col-8 
+                    .col-4 
+                        if(role.Permissions.includes("products-category_add"))
+                            a(href=`${prefixAdmin}/productCategory/create` style="color: black" class="btn btn-outline-success")  + Create
+    
+    if(role.Permissions.includes("products-category_view"))
+        table(class="table table-striped-columns" check-box-multi)
+            +sort()
+            thead 
+                tr 
+                    th no
+                    th image 
+                    th title 
+                    th position
+                    th status 
+                    th author
+                    th action 
+                    
+
+            tbody 
+                +tableCategory(listCategory)

@@ -1,5 +1,36 @@
 extends ../../layout/default.pug
 
 block main 
-    h1 oke blyat
-         
+    a(href=`${prefixAdmin}/my-account` class="btn btn-primary") my account
+    button.btn.btn-danger(type='button' log-out-btn) logout
+    h1(style="color: white") Hello my friend
+    p(style="color: white") #{account}
+    p -----------------------------------
+    p(style="color: white") #{role}
+    p -----------------------------------
+    div(style="color: white") 
+        p product category 
+        p quantity: #{statistic.productCategory.quantitty}
+        p active: #{statistic.productCategory.active}
+        p inactive: #{statistic.productCategory.inactive}
+    p -----------------------------------
+    div(style="color: white") 
+        p product  
+        p quantity: #{statistic.product.quantitty}
+        p active: #{statistic.product.active}
+        p inactive:  #{statistic.product.inactive}
+    p ----------------------------------
+    div(style="color: white") 
+        p admin account  
+        p quantity:  #{statistic.account.quantitty}
+        p active: #{statistic.account.active}
+        p inactive: #{statistic.account.inactive}
+    div(style="color: white") 
+        p customer account 
+        p quantity: #{statistic.user.quantitty}
+        p active: #{statistic.user.active} 
+        p inactive: #{statistic.user.inactive}
+        
+
+
+    script(src="/admin/js/dashboard.js") 
